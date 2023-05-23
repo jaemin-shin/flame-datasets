@@ -71,7 +71,7 @@ for k, client in enumerate(train_users_list):
             client_y.append(train_Y_tmp[i])
     client_x = np.array(client_x)
     client_y = np.array(client_y)
-    np.savez(f'./train_user{k}.npz', train_x=client_x, train_y=client_y)
+    np.savez(f'./train_user{k+1}.npz', train_x=client_x, train_y=client_y)
 
 ### PARSE TEST USER DATA INTO ONE DATASET ###
 
