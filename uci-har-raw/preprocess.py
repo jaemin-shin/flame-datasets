@@ -54,8 +54,8 @@ def load_dataset(prefix=''):
 ### LOAD DATA FILES ###
 
 trainX, trainy, testX, testy = load_dataset()
-trainX_flat = trainX.reshape((7352,1152))
-testX_flat = testX.reshape((2947,1152))
+# trainX_flat = trainX.reshape((7352,1152))
+# testX_flat = testX.reshape((2947,1152))
 
 train_subject_f = open('./UCI HAR Dataset/train/subject_train.txt')
 train_subject_f_lines = train_subject_f.readlines()
@@ -75,12 +75,13 @@ for subject in train_subject_f_tmp:
 ### PARSE TRAIN USER DATA ###
 
 for k, client in enumerate(train_users_list):
+    print(k, client)
     client_x = []
     client_y = []
     for i in range(len(train_subject_f_tmp)):
         if train_subject_f_tmp[i] == int(client):
             #train_output_user_data[client]['x'].append(train_X_tmp[i]+[0.0]*15)
-            client_x.append(list(trainX_flat[i]))
+            client_x.append(trainX[i])
             client_y.append(int(trainy[i][0]))
     client_x = np.array(client_x)
     client_y = np.array(client_y)
@@ -90,10 +91,11 @@ for k, client in enumerate(train_users_list):
 
 test_client_x = []
 test_client_y = []
-for i in range(len(testX_flat)):
-    test_client_x.append(list(testX_flat[i]))
+for i in range(len(testX)):
+    test_client_x.append(testX[i])
     test_client_y.append(int(testy[i][0]))
 test_client_x = np.array(test_client_x)
 test_client_y = np.array(test_client_y)
 
 np.savez(f'./all_val.npz', test_x=test_client_x, test_y=test_client_y)
+print("DONE")
