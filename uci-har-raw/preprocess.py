@@ -92,9 +92,9 @@ for k, client in enumerate(train_users_list):
 test_client_x = []
 test_client_y = []
 for i in range(len(testX)):
-    test_client_x.append(testX[i])
+    test_client_x.append(np.expand_dims(testX[i], axis=0))
     test_client_y.append(int(testy[i][0]))
-test_client_x = np.array(np.expand_dims(test_client_x, axis=0))
+test_client_x = np.array(test_client_x)
 test_client_y = np.array(test_client_y)
 
 np.savez(f'./all_val.npz', test_x=test_client_x, test_y=test_client_y)
